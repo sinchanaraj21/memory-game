@@ -1,0 +1,294 @@
+/* ===== RESET ===== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== GLOBAL ===== */
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #e8f0ff, #fdfbfb);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #2c3e50;
+}
+
+.container {
+    width: 100%;
+    max-width: 950px;
+    animation: fadeUp 0.7s ease;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== HEADER ===== */
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* ===== SCORE BOARD ===== */
+.score-board {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.score-item {
+    text-align: center;
+    flex: 1;
+}
+
+.score-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.score-value {
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: #3734db;
+}
+
+.score-value.danger {
+    color: #e74c3c;
+    animation: pulse 0.4s;
+}
+
+@keyframes pulse {
+    50% { transform: scale(1.15); }
+}
+
+/* ===== GAME BOARD ===== */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    margin-bottom: 25px;
+}
+
+/* ===== CARD ===== */
+.card {
+    aspect-ratio: 1;
+    border-radius: 12px;
+    cursor: pointer;
+
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 2rem;
+    color: #95a5a6;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: all 0.25s ease;
+}
+
+.card:hover:not(.flipped):not(.matched) {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+/* flipped */
+.card.flipped {
+    background: linear-gradient(135deg, #1c2668, #2c3686);
+    color: white;
+}
+
+/* matched */
+.card.matched {
+    background: linear-gradient(135deg, #0e5b1d, #13703a);
+    color: white;
+    cursor: default;
+    animation: matchPop 0.5s;
+}
+
+@keyframes matchPop {
+    50% { transform: scale(1.1); }
+}
+
+/* wrong */
+.card.wrong {
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+}
+
+/* ===== CONTROLS ===== */
+.controls {
+    text-align: center;
+}
+
+.btn {
+    padding: 14px 40px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: white;
+
+    background: linear-gradient(135deg, #3498db, #5dade2);
+    box-shadow: 0 8px 18px rgba(52,152,219,0.35);
+
+    transition: all 0.25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(52,152,219,0.45);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* ===== GAME OVER PANEL ===== */
+.game-over {
+    display: none;
+    margin-top: 20px;
+    padding: 40px;
+    text-align: center;
+
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(12px);
+
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+.game-over.show {
+    display: block;
+    animation: fadeUp 0.4s;
+}
+
+.game-over h2 {
+    margin-bottom: 15px;
+}
+
+.game-over p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+/* ===== COUNTDOWN OVERLAY ===== */
+.countdown-overlay,
+.freeze-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.countdown-overlay.show,
+.freeze-overlay.show {
+    display: flex;
+}
+
+.countdown-overlay {
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+}
+
+.countdown-number {
+    font-size: 9rem;
+    color: white;
+    font-weight: bold;
+    animation: zoom 1s;
+}
+
+@keyframes zoom {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.countdown-text {
+    margin-top: 10px;
+    color: white;
+    font-size: 1.4rem;
+}
+
+/* ===== FREEZE / GAME OVER OVERLAY ===== */
+.freeze-overlay {
+    background: rgba(0,0,0,0.9);
+    z-index: 2000;
+}
+
+.freeze-content {
+    background: white;
+    padding: 45px;
+    border-radius: 18px;
+    text-align: center;
+    animation: fadeUp 0.5s;
+}
+
+.freeze-emoji {
+    font-size: 4.5rem;
+    margin-bottom: 15px;
+}
+
+.freeze-title {
+    font-size: 2.3rem;
+    color: #e74c3c;
+    margin-bottom: 10px;
+}
+
+.freeze-message {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+    .game-board {
+        gap: 8px;
+    }
+
+    .card {
+        font-size: 1.4rem;
+    }
+
+    .header h1 {
+        font-size: 1.7rem;
+    }
+
+    .countdown-number {
+        font-size: 5rem;
+    }
+}
