@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greek Alphabet Memory Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>🎮 Greek Alphabet Memory Game</h1>
+            
+            <div class="instructions">
+                <h3>How to Play:</h3>
+                <ul>
+                    <li> Match pairs of Greek alphabet cards in a 6x6 grid (18 pairs)</li>
+                    <li> Start with 100 points</li>
+                    <li>First-time card flips = NO penalty</li>
+                    <li>Wrong match (at least one card visited before) = -4 points</li>
+                    <li> Game ends when all matched OR score = 0</li>
+                </ul>
+            </div>
+
+            <div class="score-board">
+                <div class="score-item">
+                    <div class="score-label">Score</div>
+                    <div class="score-value" id="score">100</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-label">Matches</div>
+                    <div class="score-value" id="matches">0/18</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-label">Moves</div>
+                    <div class="score-value" id="moves">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-board" id="gameBoard"></div>
+
+        <div class="controls">
+            <button class="btn-primary" onclick="resetGame()">🔄 New Game</button>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div class="modal" id="gameOverModal">
+        <div class="modal-content">
+            <h2 id="gameOverTitle">🎉 Game Over!</h2>
+            <p id="gameOverMessage"></p>
+            <div class="final-score" id="finalScore"></div>
+            <button class="btn-primary" onclick="resetGame()">Play Again</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
